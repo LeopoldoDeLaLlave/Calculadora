@@ -16,6 +16,7 @@ namespace Calculadora
         Double operando1=0;
         Boolean operaciones = true;//Nos indica si hay un solo operador
         Boolean igual = false;//indica si se acaba de pulsar igual para poder introducir un nuevo número
+        Boolean hayRaiz = false; //indica si hay algún numero con raiz para no hacer otra operación
 
         String operacion = "";//Operación que realizaremos
         public Form1()
@@ -76,7 +77,11 @@ namespace Calculadora
             Button boton = (Button)sender;
 
             operacion = boton.Text;
-            if (operaciones)
+            if (hayRaiz)
+            {
+                operacion = "√";
+            }
+            if (operaciones && !hayRaiz)
             {//Solo se puede haber un operador por operación
                 operando1 = Convert.ToDouble(label1.Text);
 
@@ -96,6 +101,9 @@ namespace Calculadora
                 operando1 += Convert.ToDouble(label1.Text);
                 label1.Text = Convert.ToString(operando1);
                 igual = true;
+                hayRaiz = false;
+                operacion = "";
+                operaciones = true;
 
             }
             else if(operacion == "-")
@@ -103,6 +111,9 @@ namespace Calculadora
                 operando1 -= Convert.ToDouble(label1.Text);
                 label1.Text = Convert.ToString(operando1);
                 igual = true;
+                hayRaiz = false;
+                operacion = "";
+                operaciones = true;
 
             }
             else if (operacion == "*")
@@ -110,6 +121,9 @@ namespace Calculadora
                 operando1 *= Convert.ToDouble(label1.Text);
                 label1.Text = Convert.ToString(operando1);
                 igual = true;
+                hayRaiz = false;
+                operacion = "";
+                operaciones = true;
 
             }
             else if (operacion == "/")
@@ -117,6 +131,9 @@ namespace Calculadora
                 operando1 /= Convert.ToDouble(label1.Text);
                 label1.Text = Convert.ToString(operando1);
                 igual = true;
+                hayRaiz = false;
+                operacion = "";
+                operaciones = true;
 
             }
             else if (operacion == "^")
@@ -124,19 +141,24 @@ namespace Calculadora
                 operando1 = Math.Pow(operando1, Convert.ToDouble(label1.Text));
                 label1.Text = Convert.ToString(operando1);
                 igual = true;
-     
+                hayRaiz = false;
+                operacion = "";
+                operaciones = true;
+
             }
-            else if (operacion == "√")
+            else if (operacion == "√" && label1.Text != "√")
             {
                 operando1 = Convert.ToDouble(label1.Text.Substring(1));
                 operando1 = Math.Sqrt(operando1);
                 label1.Text = Convert.ToString(operando1);
                 igual = true;
+                hayRaiz = false;
+                operacion = "";
+                operaciones = true;
 
             }
 
-            operacion = "";
-            operaciones = true;
+            
             
         }
 
@@ -164,6 +186,7 @@ namespace Calculadora
             operaciones = true;//Nos indica si hay un solo operador
             igual = false;
 
+            hayRaiz = false;
             operacion = "";
 
         }
@@ -171,15 +194,19 @@ namespace Calculadora
         //Raíces cuadradas
         private void button19_Click(object sender, EventArgs e)
         {
-
-            operando1 = Convert.ToDouble(label1.Text);
-            if (label1.Text == "0")//Si solo hay un 0 lo quitamos por estética
+            if (!hayRaiz)
             {
-                label1.Text = "";
+                operando1 = Convert.ToDouble(label1.Text);
+                if (label1.Text == "0")//Si solo hay un 0 lo quitamos por estética
+                {
+                    label1.Text = "";
+                }
+                label1.Text = "√" + label1.Text;//Ponemos el "√" a principio del texto
+                operacion = "√";
+                igual = false;
+                hayRaiz = true;
             }
-            label1.Text = "√"+ label1.Text;//Ponemos el "√" a principio del texto
-            operacion = "√";
-            igual = false;
+
 
         }
 

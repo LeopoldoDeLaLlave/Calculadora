@@ -187,7 +187,7 @@
             // 
             this.button10.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.button10.Font = new System.Drawing.Font("Microsoft JhengHei", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button10.Location = new System.Drawing.Point(252, 423);
+            this.button10.Location = new System.Drawing.Point(243, 423);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(80, 80);
             this.button10.TabIndex = 12;
